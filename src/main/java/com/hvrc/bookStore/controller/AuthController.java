@@ -37,8 +37,16 @@ public class AuthController {
             try {
                 user.setPassword(passwordEncoder.encode(user.getPassword()));
                 user.setRole("USER");
+<<<<<<< HEAD
                 userService.save(user);
                 return new ResponseEntity<>("User registered successfully", HttpStatus.OK);
+=======
+                if(userService.save(user)){
+                    return new ResponseEntity<>("User registered successfully", HttpStatus.OK);
+                }else{
+                    return new ResponseEntity<>("User not registered", HttpStatus.BAD_REQUEST);
+                }
+>>>>>>> f00bc12 (Added new files to the project)
             } catch (Exception e) {
                 return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
             }

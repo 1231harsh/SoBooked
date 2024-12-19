@@ -83,4 +83,34 @@ public class CartService {
         return true;
     }
 
+<<<<<<< HEAD
+=======
+    public boolean updateQuantity(String username, Long bookId, String operation) {
+        User user = userService.findByUsername(username);
+        Cart cart = cartRepository.findByUser(user).orElseThrow(() -> new RuntimeException("Cart not found"));
+        CartItems cartItem = cart.getCartItems().stream()
+                .filter(item -> item.getBook().getId().equals(bookId))
+                .findFirst()
+                .orElse(null);
+
+        if (cartItem != null) {
+            if (operation.equals("increase")) {
+                cartItem.setQuantity(cartItem.getQuantity() + 1);
+            } else if (operation.equals("decrease") && cartItem.getQuantity() > 1) {
+                cartItem.setQuantity(cartItem.getQuantity() - 1);
+            }
+            cartRepository.save(cart);
+            return true;
+        }
+        return false;
+    }
+
+    public boolean removeAll(String name) {
+        User user = userService.findByUsername(name);
+        Cart cart = cartRepository.findByUser(user).orElseThrow(() -> new RuntimeException("Cart not found"));
+        cart.getCartItems().clear();
+        cartRepository.save(cart);
+        return true;
+    }
+>>>>>>> f00bc12 (Added new files to the project)
 }

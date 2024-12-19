@@ -7,4 +7,8 @@ import java.util.List;
 
 public interface BookRepository extends JpaRepository<Book,Long> {
 
+<<<<<<< HEAD
+=======
+    Book findByName(String bookName);
+>>>>>>> f00bc12 (Added new files to the project)
 }
