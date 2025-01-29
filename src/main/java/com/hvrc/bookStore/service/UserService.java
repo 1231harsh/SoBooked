@@ -14,13 +14,7 @@ public class UserService {
         return userRepository.findByUsername(username);
     }
 
-<<<<<<< HEAD
     public User save(User user) {
         return userRepository.save(user);
-=======
-    public boolean save(User user) {
-        userRepository.save(user);
-        return true;
->>>>>>> f00bc12 (Added new files to the project)
     }
 }

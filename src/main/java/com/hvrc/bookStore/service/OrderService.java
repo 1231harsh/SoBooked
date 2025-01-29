@@ -56,11 +56,7 @@ public class OrderService {
             orderItem.setQuantity(cartItem.getQuantity());
             orderItem.setPriceAtPurchase(cartItem.getBook().getPrice());
 
-<<<<<<< HEAD
             System.out.println("update book call hua");
-=======
-//            System.out.println("update book call hua");
->>>>>>> f00bc12 (Added new files to the project)
             bookService.updateBook(cartItem.getBook().getId(), cartItem.getQuantity());
 
             orderItemService.save(orderItem);
@@ -94,13 +90,8 @@ public class OrderService {
     }
 
     public OrderDTO getOrderById(Long orderId) {
-<<<<<<< HEAD
         Order order = orderRepository.findById(orderId).get();
         OrderDTO orderDTO = OrderMapper.toOrderDTO(order);
         return orderDTO;
-=======
-        Order order = orderRepository.findById(orderId).orElseThrow(() -> new RuntimeException("Order not found"));
-        return OrderMapper.toOrderDTO(order);
->>>>>>> f00bc12 (Added new files to the project)
     }
 }

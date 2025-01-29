@@ -82,6 +82,7 @@ public class CartService {
         cartItemsService.save(cartItem);
         return true;
     }
+<<<<<<< HEAD
     public boolean updateQuantity(String username, Long bookId, String operation) {
         User user = userService.findByUsername(username);
         Cart cart = cartRepository.findByUser(user).orElseThrow(() -> new RuntimeException("Cart not found"));
@@ -109,4 +110,7 @@ public class CartService {
         cartRepository.save(cart);
         return true;
     }
+=======
+
+>>>>>>> parent of acff6a1 (Added new files to the project)
 }

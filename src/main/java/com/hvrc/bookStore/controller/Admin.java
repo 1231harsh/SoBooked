@@ -23,12 +23,9 @@ public class Admin {
     @PostMapping("/admin/addBook")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<String> addBook(@RequestBody Book book) {
-        if(bookService.save(book)){
-            return ResponseEntity.ok("Book added successfully");
-        }else{
-            return ResponseEntity.ok("Book not added");
-        }
-
+        bookService.save(book);
+        System.out.println("inside admin addBook");
+        return ResponseEntity.ok("Book added successfully");
     }
 
 }
