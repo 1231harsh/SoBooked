@@ -23,20 +23,14 @@ public class BookService {
 
     public List<BookDTO> getBooks() {
         List<Book> books= bookRepository.findAll();
-<<<<<<< HEAD
         List<BookDTO> bookDTOS = books.stream().map(book -> new BookDTO(
-=======
-        List<BookDTO> bookDTOS;
+            List<BookDTO> bookDTOS;
         bookDTOS = books.stream().map(book -> new BookDTO(
->>>>>>> f00bc12 (Added new files to the project)
                 book.getId(),
                 book.getName(),
                 book.getAuthor(),
                 book.getDescription(),
-<<<<<<< HEAD
-=======
                 book.getCategory(),
->>>>>>> f00bc12 (Added new files to the project)
                 book.getPrice(),
                 book.getQuantity())).collect(Collectors.toList());
         return bookDTOS;
@@ -65,8 +59,6 @@ public class BookService {
         }
     }
 
-<<<<<<< HEAD
-=======
     public BookDTO getBook(String bookName) {
         Book book = bookRepository.findByName(bookName);
         return new BookDTO(
@@ -78,5 +70,4 @@ public class BookService {
                 book.getPrice(),
                 book.getQuantity());
     }
->>>>>>> f00bc12 (Added new files to the project)
 }

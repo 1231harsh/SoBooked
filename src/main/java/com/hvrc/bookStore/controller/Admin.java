@@ -23,17 +23,12 @@ public class Admin {
     @PostMapping("/admin/addBook")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<String> addBook(@RequestBody Book book) {
-<<<<<<< HEAD
-        bookService.save(book);
-        System.out.println("inside admin addBook");
-        return ResponseEntity.ok("Book added successfully");
-=======
         if(bookService.save(book)){
             return ResponseEntity.ok("Book added successfully");
         }else{
             return ResponseEntity.ok("Book not added");
         }
->>>>>>> f00bc12 (Added new files to the project)
+
     }
 
 }

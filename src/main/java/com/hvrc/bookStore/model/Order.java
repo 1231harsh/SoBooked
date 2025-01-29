@@ -1,10 +1,7 @@
 package com.hvrc.bookStore.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-<<<<<<< HEAD
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-=======
->>>>>>> f00bc12 (Added new files to the project)
 import jakarta.persistence.*;
 import lombok.Data;
 
