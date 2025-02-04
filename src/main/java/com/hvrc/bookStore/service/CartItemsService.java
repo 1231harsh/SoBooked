@@ -22,4 +22,8 @@ public class CartItemsService {
     public Optional<CartItems> getCartItemsByCartAndBook(Cart cart, Book book) {
         return cartItemsRepository.findByCartAndBook(cart, book);
     }
+
+    public void delete(CartItems cartItem) {
+        cartItemsRepository.delete(cartItem);
+    }
 }

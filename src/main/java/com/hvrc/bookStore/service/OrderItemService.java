@@ -12,7 +12,6 @@ public class OrderItemService {
     private OrderItemRepository orderItemRepository;
 
     public void save(OrderItem orderItem) {
-
         orderItemRepository.save(orderItem);
     }
 }

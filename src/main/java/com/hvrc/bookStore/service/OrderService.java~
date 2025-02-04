@@ -55,6 +55,7 @@ public class OrderService {
             OrderItem orderItem = new OrderItem();
             orderItem.setOrder(order);
             orderItem.setProductId(cartItem.getBook().getId());
+            orderItem.setQuantity(cartItem.getQuantity());
             orderItem.setPriceAtPurchase(isRenting ? book.getRentalPrice() : book.getBuyPrice());
 
             if (isRenting) {

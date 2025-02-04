@@ -20,7 +20,5 @@ public class OrderItem {
 
     private Long productId;
 
-    private Long quantity;
-
     private Double priceAtPurchase;
 }

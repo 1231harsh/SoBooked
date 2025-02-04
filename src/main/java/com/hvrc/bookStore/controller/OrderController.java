@@ -14,8 +14,8 @@ public class OrderController {
     private OrderService orderService;
 
     @PostMapping("/placeOrder")
-    public ResponseEntity<CreatePaymentResponse> placeOrder(@RequestParam("cartId") Long cartId) {
-        CreatePaymentResponse createPaymentResponse = orderService.placeOrder(cartId);
+    public ResponseEntity<CreatePaymentResponse> placeOrder(@RequestParam("cartId") Long cartId,@RequestParam("isRenting") boolean isRenting) {
+        CreatePaymentResponse createPaymentResponse = orderService.placeOrder(cartId, isRenting);
         return ResponseEntity.ok(createPaymentResponse);
     }
 

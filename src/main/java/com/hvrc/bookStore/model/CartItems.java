@@ -23,5 +23,4 @@ public class CartItems {
     @JoinColumn(name = "book_id")
     private Book book;
 
-    private Long quantity;
 }

@@ -9,6 +9,10 @@ public class CartItemsDTO{
     private Long bookId;
     private String bookName;
     private String author;
-    private Double price;
-    private Long quantity;
+    private Double buyPrice;
+    private Double rentalPrice;
+    private String city;
+    private String phoneNumber;
+    private boolean availableForRent;
+    private byte[] photo;
 }

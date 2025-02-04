@@ -39,4 +39,10 @@ public class CartController {
         cartService.removeFromCart(principal.getName(), bookId);
         return ResponseEntity.ok("Cart Deleted");
     }
+
+     @DeleteMapping("/cart/deleteAll")
+    public ResponseEntity<String> deleteCart(Principal principal) {
+        cartService.removeAll(principal.getName());
+        return ResponseEntity.ok("Cart Deleted");
+    }
 }

@@ -59,16 +59,9 @@ public class CartService {
 
         Optional<CartItems> cartItemsOptional=cartItemsService.getCartItemsByCartAndBook(cart, book);
 
-        CartItems cartItem;
-        if(cartItemsOptional.isPresent()){
-            cartItem=cartItemsOptional.get();
-            cartItem.setQuantity(cartItem.getQuantity()+1);
-        }else{
-            cartItem=new CartItems();
-            cartItem.setCart(cart);
-            cartItem.setBook(book);
-            cartItem.setQuantity(1L);
-        }
+        CartItems cartItem = new CartItems();
+        cartItem.setCart(cart);
+        cartItem.setBook(book);
 
         cartItemsService.save(cartItem);
         return true;
@@ -77,29 +70,14 @@ public class CartService {
     public boolean removeFromCart(String username, Long bookId) {
         Cart cart= getCartByUsername(username);
         Book book = bookService.getBookById(bookId);
-        CartItems cartItem=cartItemsService.getCartItemsByCartAndBook(cart, book).get();
-        cartItem.setQuantity(cartItem.getQuantity()-1);
-        cartItemsService.save(cartItem);
-        return true;
-    }
-<<<<<<< HEAD
-    public boolean updateQuantity(String username, Long bookId, String operation) {
-        User user = userService.findByUsername(username);
-        Cart cart = cartRepository.findByUser(user).orElseThrow(() -> new RuntimeException("Cart not found"));
-        CartItems cartItem = cart.getCartItems().stream()
-                .filter(item -> item.getBook().getId().equals(bookId))
-                .findFirst()
-                .orElse(null);
 
-        if (cartItem != null) {
-            if (operation.equals("increase")) {
-                cartItem.setQuantity(cartItem.getQuantity() + 1);
-            } else if (operation.equals("decrease") && cartItem.getQuantity() > 1) {
-                cartItem.setQuantity(cartItem.getQuantity() - 1);
-            }
-            cartRepository.save(cart);
+        Optional<CartItems> cartItemOptional = cartItemsService.getCartItemsByCartAndBook(cart, book);
+
+        if (cartItemOptional.isPresent()) {
+            cartItemsService.delete(cartItemOptional.get());
             return true;
         }
+
         return false;
     }
 
@@ -110,7 +88,4 @@ public class CartService {
         cartRepository.save(cart);
         return true;
     }
-=======
-
->>>>>>> parent of acff6a1 (Added new files to the project)
 }

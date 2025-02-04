@@ -3,6 +3,7 @@ package com.hvrc.bookStore.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.Getter;
 
 import java.util.Set;
 
@@ -17,11 +18,16 @@ public class Book {
     private String author;
     private String description;
     private String category;
-    private String publisher;
-    private String publishMonth;
-    private String publishYear;
-    private Double price;
-    private Long quantity;
+    private Double buyPrice;
+    private Double rentalPrice;
+    private String city;
+    @Lob
+    @Column(columnDefinition = "LONGBLOB")
+    private byte[] photo;
+    private String phoneNumber;
+
+    private boolean availableForRent;
+
 
     @OneToMany(mappedBy = "book",fetch = FetchType.LAZY)
     @JsonIgnore

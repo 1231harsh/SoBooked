@@ -23,8 +23,13 @@ public class CartMapper {
         cartItemsDTO.setBookId(cartItems.getBook().getId());
         cartItemsDTO.setBookName(cartItems.getBook().getName());
         cartItemsDTO.setAuthor(cartItems.getBook().getAuthor());
-        cartItemsDTO.setPrice(cartItems.getBook().getPrice());
-        cartItemsDTO.setQuantity(cartItems.getQuantity());
+        cartItemsDTO.setBuyPrice(cartItems.getBook().getBuyPrice());
+        cartItemsDTO.setRentalPrice(cartItems.getBook().getRentalPrice());
+        cartItemsDTO.setCity(cartItems.getBook().getCity());
+        cartItemsDTO.setPhoneNumber(cartItems.getBook().getPhoneNumber());
+        cartItemsDTO.setAvailableForRent(cartItems.getBook().isAvailableForRent());
+        cartItemsDTO.setPhoto(cartItems.getBook().getPhoto());
+
         return cartItemsDTO;
     }
 }
