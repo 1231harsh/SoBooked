@@ -28,6 +28,8 @@ public class Book {
 
     private boolean availableForRent;
 
+    private int rentalCount;
+    private int purchaseCount;
 
     @OneToMany(mappedBy = "book",fetch = FetchType.LAZY)
     @JsonIgnore

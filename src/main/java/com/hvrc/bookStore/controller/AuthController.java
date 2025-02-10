@@ -8,12 +8,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Collections;
 
 @RestController
 public class AuthController {
@@ -44,18 +46,19 @@ public class AuthController {
             }
         }
         @PostMapping("/login")
-        public ResponseEntity<String> login(@RequestBody User user) {
-//            System.out.println(user.getUsername());
-//            System.out.println(user.getPassword());
+        public ResponseEntity<?> login(@RequestBody User user) {
             try {
                 authenticationManager.authenticate(
                         new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword()));
-//                UserDetails userDetails = userDetailsService.loadUserByUsername(user.getUsername());
                 String jwt=jwtUtil.generateToken(user.getUsername());
-//                System.out.println(jwt);
+
                 return new ResponseEntity<>(jwt, HttpStatus.OK);
+            } catch (BadCredentialsException e) {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                        .body(Collections.singletonMap("error", "Invalid username or password"));
             } catch (Exception e) {
-                return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                        .body(Collections.singletonMap("error", "An unexpected error occurred"));
             }
         }
 }

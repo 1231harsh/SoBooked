@@ -3,7 +3,6 @@ package com.hvrc.bookStore.service;
 import com.hvrc.bookStore.dto.CreatePaymentResponse;
 import com.hvrc.bookStore.dto.OrderDTO;
 import com.hvrc.bookStore.dto.OrderMapper;
-import com.hvrc.bookStore.kafka.BookEventProducer;
 import com.hvrc.bookStore.model.*;
 import com.hvrc.bookStore.repository.OrderRepository;
 import com.stripe.model.PaymentIntent;
@@ -32,12 +31,11 @@ public class OrderService {
     @Autowired
     private StripeService stripeService;
 
-    @Autowired
-    private BookEventProducer bookEventProducer;
-
     @Transactional
     public CreatePaymentResponse placeOrder(Long cartId, boolean isRenting) {
         Cart cart = cartService.getCartById(cartId);
+        Long userId = cart.getUser().getId();
+
         List<CartItems> cartItems = cart.getCartItems();
 
         double totalAmount = cartItems.stream()
@@ -59,9 +57,9 @@ public class OrderService {
 
             if (isRenting) {
                 book.setAvailableForRent(false);
-                bookService.rentBook(book.getId());
+                bookService.rentBook(userId,book.getId());
             } else {
-                bookService.sellBook(book.getId());
+                bookService.sellBook(userId,book.getId());
             }
 
             orderItemService.save(orderItem);

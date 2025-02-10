@@ -1,9 +1,10 @@
 package com.hvrc.bookStore.service;
 
 import com.hvrc.bookStore.dto.BookDTO;
-import com.hvrc.bookStore.kafka.BookEventProducer;
 import com.hvrc.bookStore.model.Book;
+import com.hvrc.bookStore.model.User;
 import com.hvrc.bookStore.repository.BookRepository;
+import com.hvrc.bookStore.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,15 +17,13 @@ public class BookService {
     @Autowired
     private BookRepository bookRepository;
 
+
     @Autowired
-    private BookEventProducer bookEventProducer;
+    private UserRepository userRepository;
 
 
     public boolean save(Book book) {
         Book savedBook = bookRepository.save(book);
-
-        String eventMessage = "New book added: " + book.getName() + " by " + book.getAuthor();
-        bookEventProducer.sendBookAddedEvent(eventMessage);
 
         return true;
     }
@@ -58,28 +57,43 @@ public class BookService {
         return bookRepository.findByCityAndAvailableForRentTrue(city);
     }
 
-    public void sellBook(Long bookId) {
+    public void sellBook(Long userId,Long bookId) {
         if (bookRepository.existsById(bookId)) {
-            Book book = bookRepository.findById(bookId).orElseThrow(() -> new RuntimeException("Book not found"));
-            String ownerPhoneNumber = book.getPhoneNumber();
+//            Book book = bookRepository.findById(bookId).orElseThrow(() -> new RuntimeException("Book not found"));
+////            User user = userRepository.findById(userId).orElseThrow();
+////            String ownerPhoneNumber = book.getPhoneNumber();
             bookRepository.deleteById(bookId);
-            String eventMessage = "SELL," + book.getName() + "," + ownerPhoneNumber;
-            bookEventProducer.sendBookInventoryEvent(eventMessage);
         } else {
             throw new RuntimeException("Book not found");
         }
     }
 
-    public void rentBook(Long bookId) {
+    public void rentBook(Long userId,Long bookId) {
         Book book = bookRepository.findById(bookId).orElseThrow(() -> new RuntimeException("Book not found"));
+        User user = userRepository.findById(userId).orElseThrow();
         if (book.isAvailableForRent()) {
-            String ownerPhoneNumber = book.getPhoneNumber();
+//            String ownerPhoneNumber = book.getPhoneNumber();
             book.setAvailableForRent(false);
             bookRepository.save(book);
-            String eventMessage = "RENT," + book.getName() + "," + ownerPhoneNumber;
-            bookEventProducer.sendBookInventoryEvent(eventMessage);
         } else {
             throw new RuntimeException("Book is already rented");
         }
+    }
+
+    public void returnBook(Long userId,Long bookId) {
+        Book book = bookRepository.findById(bookId).orElseThrow(() -> new RuntimeException("Book not found"));
+        User user = userRepository.findById(userId).orElseThrow();
+        if (!book.isAvailableForRent()) {
+//            String ownerPhoneNumber = book.getPhoneNumber();
+            book.setAvailableForRent(true);
+            bookRepository.save(book);
+        } else {
+            throw new RuntimeException("Book is already available for rent");
+        }
+    }
+
+    public void viewedBook(Long userId,Long bookId) {
+        Book book = bookRepository.findById(bookId).orElseThrow(() -> new RuntimeException("Book not found"));
+        User user = userRepository.findById(userId).orElseThrow();
     }
 }
