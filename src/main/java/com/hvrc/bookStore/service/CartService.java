@@ -53,7 +53,7 @@ public class CartService {
         return true;
     }
 
-    public boolean addToCart(String username, Long bookId) {
+    public boolean addToCart(String username, Long bookId,boolean isRenting) {
         Cart cart = getCartByUsername(username);
         Book book = bookService.getBookById(bookId);
 
@@ -62,6 +62,7 @@ public class CartService {
         CartItems cartItem = new CartItems();
         cartItem.setCart(cart);
         cartItem.setBook(book);
+        cartItem.setRenting(isRenting);
 
         cartItemsService.save(cartItem);
         return true;

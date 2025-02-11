@@ -13,6 +13,8 @@ public class CartItems {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private boolean isRenting;
+
     @ManyToOne
     @JoinColumn(name = "cart_id")
     @JsonBackReference

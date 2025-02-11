@@ -27,10 +27,10 @@ public class CartController {
         CartDTO cartDto= CartMapper.toCartDTO(cart);
         return new ResponseEntity<>(cartDto, HttpStatus.OK);
     }
-
+    
     @PostMapping("/cart/add")
-    public ResponseEntity<String> addCart(Principal principal, @RequestParam Long bookId) {
-        cartService.addToCart(principal.getName(), bookId);
+    public ResponseEntity<String> addCart(Principal principal, @RequestParam Long bookId,@RequestParam boolean isRenting) {
+        cartService.addToCart(principal.getName(), bookId,isRenting);
         return ResponseEntity.ok("Cart Added");
     }
 

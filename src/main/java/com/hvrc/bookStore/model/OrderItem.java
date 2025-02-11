@@ -21,4 +21,6 @@ public class OrderItem {
     private Long productId;
 
     private Double priceAtPurchase;
+
+    private boolean isRenting;
 }

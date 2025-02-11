@@ -7,15 +7,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api")
 public class OrderController {
 
     @Autowired
     private OrderService orderService;
 
     @PostMapping("/placeOrder")
-    public ResponseEntity<CreatePaymentResponse> placeOrder(@RequestParam("cartId") Long cartId,@RequestParam("isRenting") boolean isRenting) {
-        CreatePaymentResponse createPaymentResponse = orderService.placeOrder(cartId, isRenting);
+    public ResponseEntity<CreatePaymentResponse> placeOrder(@RequestParam("cartId") Long cartId) {
+        CreatePaymentResponse createPaymentResponse = orderService.placeOrder(cartId);
         return ResponseEntity.ok(createPaymentResponse);
     }
 

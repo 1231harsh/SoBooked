@@ -32,14 +32,14 @@ public class OrderService {
     private StripeService stripeService;
 
     @Transactional
-    public CreatePaymentResponse placeOrder(Long cartId, boolean isRenting) {
+    public CreatePaymentResponse placeOrder(Long cartId) {
         Cart cart = cartService.getCartById(cartId);
         Long userId = cart.getUser().getId();
 
         List<CartItems> cartItems = cart.getCartItems();
 
         double totalAmount = cartItems.stream()
-                .mapToDouble(item -> isRenting ? item.getBook().getRentalPrice() : item.getBook().getBuyPrice())
+                .mapToDouble(item -> item.isRenting() ? item.getBook().getRentalPrice() : item.getBook().getBuyPrice())
                 .sum();
 
         Order order = new Order();
@@ -50,8 +50,12 @@ public class OrderService {
 
         for (CartItems cartItem : cartItems) {
             Book book = cartItem.getBook();
+
+            boolean isRenting = cartItem.isRenting();
+
             OrderItem orderItem = new OrderItem();
             orderItem.setOrder(order);
+            orderItem.setRenting(isRenting);
             orderItem.setProductId(cartItem.getBook().getId());
             orderItem.setPriceAtPurchase(isRenting ? book.getRentalPrice() : book.getBuyPrice());
 
@@ -61,7 +65,6 @@ public class OrderService {
             } else {
                 bookService.sellBook(userId,book.getId());
             }
-
             orderItemService.save(orderItem);
         }
 
