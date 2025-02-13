@@ -68,6 +68,9 @@ public class MySecurity {
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowCredentials(true);
         config.addAllowedOrigin("http://localhost:3000");
+        config.addAllowedOrigin("http://localhost:5176");
+        config.addAllowedOrigin("http://127.0.0.1:5000");
+        config.addAllowedOrigin("http://192.168.29.60:5000");
         config.addAllowedOrigin("https://stripe.com");
         config.addAllowedOrigin("https://*.stripe.com");
         config.addAllowedHeader("*");

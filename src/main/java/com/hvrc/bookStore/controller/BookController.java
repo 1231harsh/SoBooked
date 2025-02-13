@@ -51,6 +51,25 @@ public class BookController {
         return new ResponseEntity<>(books, HttpStatus.OK);
     }
 
+    @GetMapping("/api/getBook/{id}")
+    public ResponseEntity<BookDTO> getBookById(@PathVariable Long id) {
+        Book book = bookService.getBookById(id);
+        BookDTO bookDTO = new BookDTO(
+                book.getId(),
+                book.getName(),
+                book.getAuthor(),
+                book.getDescription(),
+                book.getCategory(),
+                book.getBuyPrice(),
+                book.getRentalPrice(),
+                book.getCity(),
+                book.getPhoto(),
+                book.getPhoneNumber(),
+                book.isAvailableForRent()
+        );
+        return new ResponseEntity<>(bookDTO, HttpStatus.OK);
+    }
+
     @DeleteMapping("/api/sell/{userId}/{bookId}")
     public String sellBook(@PathVariable Long userId, @PathVariable Long bookId) {
         bookService.sellBook(userId, bookId);
