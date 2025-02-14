@@ -16,6 +16,7 @@ public class UserBookActivityController {
 
     @GetMapping("/api/user-activity")
     public List<UserBookActivity> getUserActivities() {
+        System.out.println("Flask hit kia!!!!");
         return userBookActivityService.getUserActivities();
     }
 
