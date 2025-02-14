@@ -54,13 +54,16 @@ public class CartService {
         Book book = bookService.getBookById(bookId);
 
         Optional<CartItems> cartItemsOptional=cartItemsService.getCartItemsByCartAndBook(cart, book);
-
-        CartItems cartItem = new CartItems();
-        cartItem.setCart(cart);
-        cartItem.setBook(book);
-        cartItem.setRenting(isRenting);
-
-        cartItemsService.save(cartItem);
+        if(cartItemsOptional.isPresent()){
+            return false;
+        }
+        else {
+            CartItems cartItem = new CartItems();
+            cartItem.setCart(cart);
+            cartItem.setBook(book);
+            cartItem.setRenting(isRenting);
+            cartItemsService.save(cartItem);
+        }
         return true;
     }
 

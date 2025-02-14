@@ -25,9 +25,9 @@ public class CartController {
     }
     
     @PostMapping("/cart/add")
-    public ResponseEntity<String> addCart(Principal principal, @RequestParam Long bookId,@RequestParam boolean isRenting) {
-        cartService.addToCart(principal.getName(), bookId,isRenting);
-        return ResponseEntity.ok("Cart Added");
+    public ResponseEntity<Boolean> addCart(Principal principal, @RequestParam Long bookId,@RequestParam boolean isRenting) {
+        boolean result = cartService.addToCart(principal.getName(), bookId,isRenting);
+        return ResponseEntity.ok(result);
     }
 
     @PostMapping("/cart/delete")
