@@ -72,6 +72,7 @@ public class MySecurity {
         config.addAllowedOriginPattern("https://*.pythonanywhere.com");
         config.addAllowedOrigin("http://localhost:5176");
         config.addAllowedOrigin("https://so-booked-vm.vercel.app");
+        config.addAllowedOrigin("https://reccomendation-system.onrender.com");
         config.addAllowedOrigin("http://127.0.0.1:5000");
         config.addAllowedOrigin("http://192.168.29.60:5000");
         config.addAllowedOrigin("https://stripe.com");

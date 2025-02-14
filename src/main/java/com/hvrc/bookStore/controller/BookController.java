@@ -24,15 +24,24 @@ public class BookController {
     }
 
     @PostMapping("/api/add")
-    public boolean addBook(@RequestParam("book") String bookJson, @RequestParam("file") MultipartFile file) throws IOException {
-        ObjectMapper objectMapper = new ObjectMapper();
-        Book book = objectMapper.readValue(bookJson, Book.class);
+    public ResponseEntity<String> addBook(@RequestParam("book") String bookJson, @RequestParam("file") MultipartFile file) throws IOException {
+        try {
+            ObjectMapper objectMapper = new ObjectMapper();
+            Book book = objectMapper.readValue(bookJson, Book.class);
+            book.setPhoto(file.getBytes());
+            boolean isSaved = bookService.save(book);
 
-
-
-        book.setPhoto(file.getBytes());
-
-        return bookService.save(book);
+            if (isSaved) {
+                return ResponseEntity.status(HttpStatus.CREATED)
+                        .body("Book added successfully.");
+            } else {
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                        .body("Failed to add book.");
+            }
+        } catch (IOException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body("Invalid book JSON format.");
+        }
     }
 
     @GetMapping("/api/city/{city}")
@@ -47,7 +56,7 @@ public class BookController {
 
     @GetMapping("/api/getBooks")
     public ResponseEntity<List<BookDTO>> getBooks() {
-        List<BookDTO> books= bookService.getBooks();
+        List<BookDTO> books = bookService.getBooks();
         return new ResponseEntity<>(books, HttpStatus.OK);
     }
 
@@ -69,17 +78,4 @@ public class BookController {
         );
         return new ResponseEntity<>(bookDTO, HttpStatus.OK);
     }
-
-    @DeleteMapping("/api/sell/{userId}/{bookId}")
-    public String sellBook(@PathVariable Long userId, @PathVariable Long bookId) {
-        bookService.sellBook(userId, bookId);
-        return "Book sold successfully";
-    }
-
-    @PutMapping("/api/rent/{userId}/{bookId}")
-    public String rentBook(@PathVariable Long userId, @PathVariable Long bookId) {
-        bookService.rentBook(userId, bookId);
-        return "Book rented successfully";
-    }
-
 }

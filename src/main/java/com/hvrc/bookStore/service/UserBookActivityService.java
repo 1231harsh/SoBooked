@@ -17,7 +17,9 @@ public class UserBookActivityService {
         return userBookActivityRepository.findAll();
     }
 
-    public void save(UserBookActivity rent) {
-        userBookActivityRepository.save(rent);
+    public void save(UserBookActivity userBookActivity) {
+        userBookActivityRepository.save(userBookActivity);
     }
+
+
 }
