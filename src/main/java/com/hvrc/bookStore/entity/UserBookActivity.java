@@ -1,4 +1,4 @@
-package com.hvrc.bookStore.model;
+package com.hvrc.bookStore.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;

@@ -1,6 +1,6 @@
 package com.hvrc.bookStore.service;
 
-import com.hvrc.bookStore.model.OrderItem;
+import com.hvrc.bookStore.entity.OrderItem;
 import com.hvrc.bookStore.repository.OrderItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

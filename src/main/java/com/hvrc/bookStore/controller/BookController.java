@@ -2,7 +2,7 @@ package com.hvrc.bookStore.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hvrc.bookStore.dto.BookDTO;
-import com.hvrc.bookStore.model.Book;
+import com.hvrc.bookStore.entity.Book;
 import com.hvrc.bookStore.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

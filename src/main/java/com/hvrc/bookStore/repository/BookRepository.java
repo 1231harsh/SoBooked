@@ -1,6 +1,6 @@
 package com.hvrc.bookStore.repository;
 
-import com.hvrc.bookStore.model.Book;
+import com.hvrc.bookStore.entity.Book;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

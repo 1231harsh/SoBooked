@@ -1,7 +1,7 @@
 package com.hvrc.bookStore.repository;
 
-import com.hvrc.bookStore.model.Cart;
-import com.hvrc.bookStore.model.User;
+import com.hvrc.bookStore.entity.Cart;
+import com.hvrc.bookStore.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

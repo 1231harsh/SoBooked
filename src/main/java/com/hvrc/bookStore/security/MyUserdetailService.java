@@ -1,6 +1,6 @@
 package com.hvrc.bookStore.security;
 
-import com.hvrc.bookStore.model.User;
+import com.hvrc.bookStore.entity.User;
 import com.hvrc.bookStore.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;

@@ -1,10 +1,11 @@
-package com.hvrc.bookStore.model;
+package com.hvrc.bookStore.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
-import lombok.Getter;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -34,4 +35,7 @@ public class Book {
     @OneToMany(mappedBy = "book",fetch = FetchType.LAZY)
     @JsonIgnore
     private Set<CartItems> cartItems;
+
+    @OneToMany(mappedBy = "book", cascade = CascadeType.ALL)
+    private List<SavedBook> savedByUsers = new ArrayList<>();
 }

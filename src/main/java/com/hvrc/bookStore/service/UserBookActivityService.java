@@ -1,6 +1,6 @@
 package com.hvrc.bookStore.service;
 
-import com.hvrc.bookStore.model.UserBookActivity;
+import com.hvrc.bookStore.entity.UserBookActivity;
 import com.hvrc.bookStore.repository.UserBookActivityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,5 +15,9 @@ public class UserBookActivityService {
 
     public List<UserBookActivity> getUserActivities() {
         return userBookActivityRepository.findAll();
+    }
+
+    public void save(UserBookActivity rent) {
+        userBookActivityRepository.save(rent);
     }
 }

@@ -1,15 +1,11 @@
 package com.hvrc.bookStore.service;
 
-import com.hvrc.bookStore.dto.CartDTO;
-import com.hvrc.bookStore.dto.CartMapper;
-import com.hvrc.bookStore.model.*;
+import com.hvrc.bookStore.entity.*;
 import com.hvrc.bookStore.repository.CartRepository;
 import com.hvrc.bookStore.repository.OrderRepository;
-import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service

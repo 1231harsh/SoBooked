@@ -1,6 +1,5 @@
-package com.hvrc.bookStore.model;
+package com.hvrc.bookStore.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;

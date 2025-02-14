@@ -1,8 +1,8 @@
 package com.hvrc.bookStore.repository;
 
-import com.hvrc.bookStore.model.Book;
-import com.hvrc.bookStore.model.Cart;
-import com.hvrc.bookStore.model.CartItems;
+import com.hvrc.bookStore.entity.Book;
+import com.hvrc.bookStore.entity.Cart;
+import com.hvrc.bookStore.entity.CartItems;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

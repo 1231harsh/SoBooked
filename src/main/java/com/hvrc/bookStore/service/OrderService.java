@@ -3,7 +3,7 @@ package com.hvrc.bookStore.service;
 import com.hvrc.bookStore.dto.CreatePaymentResponse;
 import com.hvrc.bookStore.dto.OrderDTO;
 import com.hvrc.bookStore.dto.OrderMapper;
-import com.hvrc.bookStore.model.*;
+import com.hvrc.bookStore.entity.*;
 import com.hvrc.bookStore.repository.OrderRepository;
 import com.stripe.model.PaymentIntent;
 import jakarta.transaction.Transactional;

@@ -1,6 +1,6 @@
 package com.hvrc.bookStore.dto;
 
-import com.hvrc.bookStore.model.Order;
+import com.hvrc.bookStore.entity.Order;
 
 public class OrderMapper {
 

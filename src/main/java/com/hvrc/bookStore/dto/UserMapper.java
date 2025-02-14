@@ -1,6 +1,6 @@
 package com.hvrc.bookStore.dto;
 
-import com.hvrc.bookStore.model.User;
+import com.hvrc.bookStore.entity.User;
 
 public class UserMapper {
 

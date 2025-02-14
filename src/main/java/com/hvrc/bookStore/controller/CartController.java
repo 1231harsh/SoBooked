@@ -1,11 +1,8 @@
 package com.hvrc.bookStore.controller;
 
 import com.hvrc.bookStore.dto.CartDTO;
-import com.hvrc.bookStore.dto.CartItemsDTO;
 import com.hvrc.bookStore.dto.CartMapper;
-import com.hvrc.bookStore.model.Book;
-import com.hvrc.bookStore.model.Cart;
-import com.hvrc.bookStore.model.CartItems;
+import com.hvrc.bookStore.entity.Cart;
 import com.hvrc.bookStore.service.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,7 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
-import java.util.List;
 
 @RestController
 public class CartController {

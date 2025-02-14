@@ -1,7 +1,7 @@
 package com.hvrc.bookStore.dto;
 
-import com.hvrc.bookStore.model.Cart;
-import com.hvrc.bookStore.model.CartItems;
+import com.hvrc.bookStore.entity.Cart;
+import com.hvrc.bookStore.entity.CartItems;
 
 import java.util.stream.Collectors;
 
@@ -23,8 +23,8 @@ public class CartMapper {
         cartItemsDTO.setBookId(cartItems.getBook().getId());
         cartItemsDTO.setBookName(cartItems.getBook().getName());
         cartItemsDTO.setAuthor(cartItems.getBook().getAuthor());
-        cartItemsDTO.setBuyPrice(cartItems.getBook().getBuyPrice());
         cartItemsDTO.setRentalPrice(cartItems.getBook().getRentalPrice());
+        cartItemsDTO.setBuyPrice(cartItems.getBook().getBuyPrice());
         cartItemsDTO.setCity(cartItems.getBook().getCity());
         cartItemsDTO.setPhoneNumber(cartItems.getBook().getPhoneNumber());
         cartItemsDTO.setAvailableForRent(cartItems.getBook().isAvailableForRent());

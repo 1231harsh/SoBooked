@@ -1,7 +1,7 @@
 package com.hvrc.bookStore.controller;
 
 import com.hvrc.bookStore.jwt.JwtUtil;
-import com.hvrc.bookStore.model.User;
+import com.hvrc.bookStore.entity.User;
 import com.hvrc.bookStore.security.MyUserdetailService;
 import com.hvrc.bookStore.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,8 +1,8 @@
 package com.hvrc.bookStore.service;
 
-import com.hvrc.bookStore.model.Book;
-import com.hvrc.bookStore.model.Cart;
-import com.hvrc.bookStore.model.CartItems;
+import com.hvrc.bookStore.entity.Book;
+import com.hvrc.bookStore.entity.Cart;
+import com.hvrc.bookStore.entity.CartItems;
 import com.hvrc.bookStore.repository.CartItemsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
