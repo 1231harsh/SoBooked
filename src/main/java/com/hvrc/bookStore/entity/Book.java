@@ -19,8 +19,8 @@ public class Book {
     private String author;
     private String description;
     private String category;
-    private Double buyPrice;
     private Double rentalPrice;
+    private Double buyPrice;
     private String city;
     @Lob
     @Column(columnDefinition = "LONGBLOB")

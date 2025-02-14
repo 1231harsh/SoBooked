@@ -31,7 +31,6 @@ public class BookService {
 
     public boolean save(Book book) {
         Book savedBook = bookRepository.save(book);
-
         return true;
     }
 
@@ -43,8 +42,8 @@ public class BookService {
                 book.getAuthor(),
                 book.getDescription(),
                 book.getCategory(),
-                book.getBuyPrice(),
                 book.getRentalPrice(),
+                book.getBuyPrice(),
                 book.getCity(),
                 book.getPhoto(),
                 book.getPhoneNumber(),

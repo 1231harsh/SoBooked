@@ -68,8 +68,7 @@ public class MySecurity {
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowCredentials(true);
         config.addAllowedOrigin("http://localhost:3000");
-        config.addAllowedOrigin("http://127.0.0.1:43815");
-        config.addAllowedOrigin("http://10.0.5.126:43815");
+        config.addAllowedOrigin("https://hvrc1231.pythonanywhere.com");
         config.addAllowedOrigin("http://localhost:5176");
         config.addAllowedOrigin("http://127.0.0.1:5000");
         config.addAllowedOrigin("http://192.168.29.60:5000");
