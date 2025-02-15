@@ -14,7 +14,7 @@ public class RecommendationService {
 
     public RecommendationService(WebClient.Builder webClientBuilder) {
 //        this.webClient = webClientBuilder.baseUrl("http://127.0.0.1:5000").build();
-        this.webClient = webClientBuilder.baseUrl("https://www.pythonanywhere.com").build();
+        this.webClient = webClientBuilder.baseUrl("https://reccomendation-system.onrender.com").build();
     }
 
     public Mono<List<Integer>> getRecommendedBooks(Long userId) {
