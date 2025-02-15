@@ -4,6 +4,8 @@ import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
+
+import java.time.Duration;
 import java.util.List;
 import java.util.Map;
 
@@ -22,6 +24,9 @@ public class RecommendationService {
                 .uri("/recommend?user_id=" + userId)
                 .retrieve()
                 .bodyToMono(new ParameterizedTypeReference<Map<String, Object>>() {})
+                .timeout(Duration.ofSeconds(60))
+                .doOnSubscribe(subscription -> System.out.println("Fetching recommendations for user: " + userId))
+                .doOnError(error -> System.err.println("Error fetching recommendations: " + error.getMessage()))
                 .map(response -> {
                     if (response != null && response.get("recommended_books") instanceof List<?>) {
                         return ((List<?>) response.get("recommended_books"))
