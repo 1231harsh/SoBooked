@@ -69,7 +69,7 @@ public class BookService {
             User user = userRepository.findById(userId).orElseThrow();
             String ownerPhoneNumber = book.getPhoneNumber();
             userBookActivityService.save(new UserBookActivity(user, book, "BUY"));
-            smsService.sendSms(ownerPhoneNumber, "Your book has been sold");
+//            smsService.sendSms(ownerPhoneNumber, "Your book has been sold");
             bookRepository.deleteById(bookId);
         } else {
             throw new RuntimeException("Book not found");
@@ -83,7 +83,7 @@ public class BookService {
             String ownerPhoneNumber = book.getPhoneNumber();
             userBookActivityService.save(new UserBookActivity(user, book, "RENT"));
             book.setAvailableForRent(false);
-            smsService.sendSms(ownerPhoneNumber, "Your book has been rented");
+//            smsService.sendSms(ownerPhoneNumber, "Your book has been rented");
             bookRepository.save(book);
         } else {
             throw new RuntimeException("Book is already rented");
