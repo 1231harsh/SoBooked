@@ -73,8 +73,8 @@ public class BookService {
 //            String ownerPhoneNumber = book.getPhoneNumber();
             userBookActivityService.save(new UserBookActivity(user, book, "BUY"));
 //            smsService.sendSms(ownerPhoneNumber, "Your book has been sold");
-            cartItemsService.deleteByBookId(bookId);
-            bookRepository.deleteById(bookId);
+//            cartItemsService.deleteByBookId(bookId);
+//            bookRepository.deleteById(bookId);
         } else {
             throw new RuntimeException("Book not found");
         }
@@ -86,9 +86,9 @@ public class BookService {
         if (book.isAvailableForRent()) {
             String ownerPhoneNumber = book.getPhoneNumber();
             userBookActivityService.save(new UserBookActivity(user, book, "RENT"));
-            book.setAvailableForRent(false);
-//            smsService.sendSms(ownerPhoneNumber, "Your book has been rented");
-            bookRepository.save(book);
+//            book.setAvailableForRent(false);
+////            smsService.sendSms(ownerPhoneNumber, "Your book has been rented");
+//            bookRepository.save(book);
         } else {
             throw new RuntimeException("Book is already rented");
         }
