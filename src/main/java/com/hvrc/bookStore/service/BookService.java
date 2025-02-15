@@ -7,6 +7,7 @@ import com.hvrc.bookStore.entity.UserBookActivity;
 import com.hvrc.bookStore.repository.BookRepository;
 import com.hvrc.bookStore.repository.UserRepository;
 import com.hvrc.bookStore.smsService.SmsService;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -66,6 +67,7 @@ public class BookService {
         return bookRepository.findByCityAndAvailableForRentTrue(city);
     }
 
+    @Transactional
     public void sellBook(Long userId, Long bookId) {
         if (bookRepository.existsById(bookId)) {
             Book book = bookRepository.findById(bookId).orElseThrow(() -> new RuntimeException("Book not found"));
@@ -73,22 +75,24 @@ public class BookService {
 //            String ownerPhoneNumber = book.getPhoneNumber();
             userBookActivityService.save(new UserBookActivity(user, book, "BUY"));
 //            smsService.sendSms(ownerPhoneNumber, "Your book has been sold");
-//            cartItemsService.deleteByBookId(bookId);
-//            bookRepository.deleteById(bookId);
+            cartItemsService.deleteByBookId(bookId);
+            bookRepository.deleteById(bookId);
         } else {
             throw new RuntimeException("Book not found");
         }
     }
 
+    @Transactional
     public void rentBook(Long userId, Long bookId) {
         Book book = bookRepository.findById(bookId).orElseThrow(() -> new RuntimeException("Book not found"));
         User user = userRepository.findById(userId).orElseThrow();
         if (book.isAvailableForRent()) {
             String ownerPhoneNumber = book.getPhoneNumber();
+            cartItemsService.deleteByBookId(bookId);
             userBookActivityService.save(new UserBookActivity(user, book, "RENT"));
-//            book.setAvailableForRent(false);
+            book.setAvailableForRent(false);
 ////            smsService.sendSms(ownerPhoneNumber, "Your book has been rented");
-//            bookRepository.save(book);
+            bookRepository.save(book);
         } else {
             throw new RuntimeException("Book is already rented");
         }

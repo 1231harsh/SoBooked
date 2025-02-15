@@ -18,20 +18,23 @@ public class StripeService {
         Stripe.apiKey = apiKey;
     }
 
-    public PaymentIntent createPaymentIntent(Double amount,String currency) throws Exception {
+    public PaymentIntent createPaymentIntent(Double amount, String currency) throws Exception {
         PaymentIntentCreateParams params = PaymentIntentCreateParams.builder()
                 .setAmount(amount.longValue())
                 .setCurrency(currency)
+                .setCaptureMethod(PaymentIntentCreateParams.CaptureMethod.MANUAL)
                 .build();
         return PaymentIntent.create(params);
     }
 
     public void confirmPayment(String paymentId) throws Exception {
         PaymentIntent paymentIntent = PaymentIntent.retrieve(paymentId);
-        if(paymentIntent.getStatus().equals("succeeded")) {
+        if ("requires_capture".equals(paymentIntent.getStatus())) {
             paymentIntent.capture();
-        }else{
-            throw new Exception("Payment failed");
+        } else if ("succeeded".equals(paymentIntent.getStatus())) {
+            System.out.println("Payment already succeeded. No capture needed.");
+        } else {
+            throw new Exception("Payment is in an unexpected state: " + paymentIntent.getStatus());
         }
     }
 }

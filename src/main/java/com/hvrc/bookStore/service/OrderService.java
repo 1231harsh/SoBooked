@@ -60,12 +60,6 @@ public class OrderService {
             orderItem.setBook(book);
             orderItem.setPriceAtPurchase(isRenting ? book.getRentalPrice() : book.getBuyPrice());
 
-            if (isRenting) {
-                book.setAvailableForRent(false);
-                bookService.rentBook(userId,book.getId());
-            } else {
-                bookService.sellBook(userId,book.getId());
-            }
             orderItemService.save(orderItem);
         }
 
@@ -85,9 +79,31 @@ public class OrderService {
     @Transactional
     public void handlePayment(String paymentIntentId) {
         Order order = orderRepository.findByPaymentId(paymentIntentId);
+
+        if (order == null) {
+            throw new RuntimeException("Order not found for payment ID: " + paymentIntentId);
+        }
+
+        if ("PAID".equals(order.getStatus())) {
+            return;
+        }
+
         try{
             stripeService.confirmPayment(paymentIntentId);
             order.setStatus("PAID");
+
+            List<OrderItem> orderItems = order.getOrderItems();
+
+            for (OrderItem item : orderItems) {
+                Long bookId = item.getBook().getId();
+                Long userId = order.getUser().getId();
+                if (item.isRenting()) {
+                    bookService.rentBook(userId, bookId);
+                } else {
+                    orderItemService.deleteOrderItem(item.getId());
+                    bookService.sellBook(userId, bookId);
+                }
+            }
             orderRepository.save(order);
         }catch (Exception e){
             e.printStackTrace();
