@@ -36,7 +36,6 @@ public class UserBookActivityController {
     @GetMapping("/api/user-activity")
     public List<UserBookActivity> getUserActivities() {
         System.out.println("Flask hit kia!!!!");
-        userBookActivityService.getUserActivities().forEach(System.out::println);
         return userBookActivityService.getUserActivities();
     }
 
