@@ -70,7 +70,7 @@ public class BookService {
         if (bookRepository.existsById(bookId)) {
             Book book = bookRepository.findById(bookId).orElseThrow(() -> new RuntimeException("Book not found"));
             User user = userRepository.findById(userId).orElseThrow();
-//            String ownerPhoneNumber = book.getPhoneNumber();
+            String ownerPhoneNumber = book.getPhoneNumber();
             userBookActivityService.save(new UserBookActivity(user, book, "BUY"));
 //            smsService.sendSms(ownerPhoneNumber, "Your book has been sold");
             cartItemsService.deleteByBookId(bookId);

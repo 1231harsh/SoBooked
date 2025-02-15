@@ -92,13 +92,12 @@ public class OrderService {
         }catch (Exception e){
             e.printStackTrace();
             order.setStatus("FAILED");
-            orderRepository.save(order);
-            throw new RuntimeException("Payment processing failed: " + e.getMessage());
         }
+        orderRepository.save(order);
     }
 
     public OrderDTO getOrderById(Long orderId) {
-        Order order = orderRepository.findById(orderId).orElseThrow(() -> new RuntimeException("Order not found"));
+        Order order = orderRepository.findById(orderId).get();
         OrderDTO orderDTO = OrderMapper.toOrderDTO(order);
         return orderDTO;
     }

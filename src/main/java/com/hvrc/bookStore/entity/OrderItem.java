@@ -17,7 +17,9 @@ public class OrderItem {
     @JsonIgnore
     private Order order;
 
-    private Long productId;
+    @ManyToOne
+    @JoinColumn(name = "book_id", nullable = false)
+    private Book book;
 
     private Double priceAtPurchase;
 
