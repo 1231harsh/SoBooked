@@ -14,12 +14,11 @@ public class UserBookActivityService {
     private UserBookActivityRepository userBookActivityRepository;
 
     public List<UserBookActivity> getUserActivities() {
+
         return userBookActivityRepository.findAll();
     }
 
     public void save(UserBookActivity userBookActivity) {
         userBookActivityRepository.save(userBookActivity);
     }
-
-
 }

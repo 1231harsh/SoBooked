@@ -15,8 +15,8 @@ public class SavedBookService {
     @Autowired
     private SavedBookRepository savedBookRepository;
 
-    public List<SavedBook> getSavedBooksByUser(User user) {
-        return savedBookRepository.findByUser(user);
+    public List<SavedBook> getSavedBooksByUser(Long userId) {
+        return savedBookRepository.findByUserId(userId);
     }
 
     public SavedBook saveBook(SavedBook savedBook) {

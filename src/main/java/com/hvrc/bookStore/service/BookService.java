@@ -34,10 +34,10 @@ public class BookService {
     private CartItemsService cartItemsService;
 
     public boolean save(Book book) {
-        Book savedBook = bookRepository.save(book);
         if (book.getStatus() == null) {
             book.setStatus("AVAILABLE");
         }
+        bookRepository.save(book);
         return true;
     }
 

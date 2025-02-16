@@ -25,8 +25,8 @@ public class SavedBookController {
 
     @GetMapping("/saved-books/{userId}")
     public List<SavedBook> getSavedBooksByUser(Principal principal) {
-        Long userId = userService.findByUsername(principal.getName()).getId();
-        return savedBookService.getSavedBooksByUser(userId);
+        User user = userService.findByUsername(principal.getName());
+        return savedBookService.getSavedBooksByUser(user);
     }
 
     @PostMapping("/saved-book/save")
@@ -38,5 +38,12 @@ public class SavedBookController {
         savedBook.setBook(book);
         savedBook.setLiked(true);
         return savedBookService.saveBook(savedBook);
+    }
+
+    @PostMapping("/saved-book/unsave")
+    public void unsaveBook(Principal principal, @RequestParam Long bookId) {
+        User user = userService.findByUsername(principal.getName());
+        Book book = bookService.getBookById(bookId);
+        savedBookService.unsaveBook(user, book);
     }
 }

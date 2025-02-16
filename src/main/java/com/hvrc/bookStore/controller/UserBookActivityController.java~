@@ -44,24 +44,18 @@ public class UserBookActivityController {
     }
 
     @PostMapping("/api/user-activity/save")
-    public ResponseEntity<String> save(Principal principal, @RequestBody UserBookActivityDTO userBookActivityDTO) {
+    public ResponseEntity<String> save(Principal principal, @RequestBody UserBookActivityDTO) {
         try {
+            UserBookActivityDTO userBookActivityDTO = objectMapper.readValue(jsonPayload, UserBookActivityDTO.class);
             User user = userService.findByUsername(principal.getName());
-            if (user == null) {
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found.");
-            }
-
             Book book = bookService.getBookById(userBookActivityDTO.getBookId());
-            if (book == null) {
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Book not found.");
-            }
 
             UserBookActivity userBookActivity = new UserBookActivity(user, book, userBookActivityDTO.getActionType());
 
             userBookActivityService.save(userBookActivity);
             return ResponseEntity.status(HttpStatus.CREATED).body("Activity saved successfully.");
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                     .body("Invalid request: " + e.getMessage());
         }
     }
