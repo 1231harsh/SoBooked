@@ -32,6 +32,8 @@ public class Book {
     private int rentalCount;
     private int purchaseCount;
 
+    private String status;
+
     @OneToMany(mappedBy = "book",fetch = FetchType.LAZY)
     @JsonIgnore
     private Set<CartItems> cartItems;

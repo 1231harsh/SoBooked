@@ -35,11 +35,14 @@ public class BookService {
 
     public boolean save(Book book) {
         Book savedBook = bookRepository.save(book);
+        if (book.getStatus() == null) {
+            book.setStatus("AVAILABLE");
+        }
         return true;
     }
 
     public List<BookDTO> getBooks() {
-        List<Book> books = bookRepository.findAll();
+        List<Book> books = bookRepository.findByStatusNot("SOLD");
         List<BookDTO> bookDTOS = books.stream().map(book -> new BookDTO(
                 book.getId(),
                 book.getName(),
@@ -75,8 +78,8 @@ public class BookService {
 //            String ownerPhoneNumber = book.getPhoneNumber();
             userBookActivityService.save(new UserBookActivity(user, book, "BUY"));
 //            smsService.sendSms(ownerPhoneNumber, "Your book has been sold");
-            cartItemsService.deleteByBookId(bookId);
-            bookRepository.deleteById(bookId);
+            book.setStatus("SOLD");
+            bookRepository.save(book);
         } else {
             throw new RuntimeException("Book not found");
         }
@@ -88,7 +91,6 @@ public class BookService {
         User user = userRepository.findById(userId).orElseThrow();
         if (book.isAvailableForRent()) {
             String ownerPhoneNumber = book.getPhoneNumber();
-            cartItemsService.deleteByBookId(bookId);
             userBookActivityService.save(new UserBookActivity(user, book, "RENT"));
             book.setAvailableForRent(false);
 ////            smsService.sendSms(ownerPhoneNumber, "Your book has been rented");

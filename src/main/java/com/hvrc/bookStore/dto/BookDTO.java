@@ -20,6 +20,8 @@ public class BookDTO {
     private byte[] photo;
     private String phoneNumber;
 
+
+
     private boolean availableForRent;
 
     public BookDTO(Long id, String name, String author, String description, String category, Double rentalPrice, Double buyPrice, String city, byte[] photo, String phoneNumber, boolean availableForRent) {

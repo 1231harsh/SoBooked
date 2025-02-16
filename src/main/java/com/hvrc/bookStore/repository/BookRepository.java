@@ -11,4 +11,6 @@ public interface BookRepository extends JpaRepository<Book,Long> {
     List<Book> findByCity(String city);
 
     List<Book> findByCityAndAvailableForRentTrue(String city);
+
+    List<Book> findByStatusNot(String sold);
 }

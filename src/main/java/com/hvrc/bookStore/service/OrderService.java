@@ -64,7 +64,7 @@ public class OrderService {
         }
 
         try{
-            PaymentIntent paymentIntent = stripeService.createPaymentIntent(totalAmount*100, "USD");
+            PaymentIntent paymentIntent = stripeService.createPaymentIntent(totalAmount*100, "INR");
             order.setPaymentId(paymentIntent.getId());
             orderRepository.save(order);
             return new CreatePaymentResponse(order.getId(),paymentIntent.getClientSecret());
@@ -78,6 +78,11 @@ public class OrderService {
 
     @Transactional
     public void handlePayment(String paymentIntentId) {
+
+        if (paymentIntentId.contains("_secret_")) {
+            paymentIntentId = paymentIntentId.split("_secret_")[0];
+        }
+
         Order order = orderRepository.findByPaymentId(paymentIntentId);
 
         if (order == null) {
@@ -100,11 +105,13 @@ public class OrderService {
                 if (item.isRenting()) {
                     bookService.rentBook(userId, bookId);
                 } else {
-                    orderItemService.deleteOrderItem(item.getId());
                     bookService.sellBook(userId, bookId);
                 }
+                orderRepository.save(order);
+
+                cartService.clearCartByUserId(userId);
+                cartService.deleteCartByUserId(userId);
             }
-            orderRepository.save(order);
         }catch (Exception e){
             e.printStackTrace();
             order.setStatus("FAILED");

@@ -23,6 +23,7 @@ public class UserBookActivity {
     private String actionType; // "VIEW", "RENT", "BUY"
     private LocalDateTime timestamp;
 
+
     public UserBookActivity() {
     }
 

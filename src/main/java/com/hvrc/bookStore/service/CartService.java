@@ -5,6 +5,7 @@ import com.hvrc.bookStore.repository.CartRepository;
 import com.hvrc.bookStore.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
@@ -87,6 +88,23 @@ public class CartService {
         cart.getCartItems().clear();
         cartRepository.save(cart);
         return true;
+    }
+
+    @Transactional
+    public void clearCartByUserId(Long userId) {
+        Cart cart = cartRepository.findByUserId(userId);
+        if (cart != null) {
+            cart.getCartItems().clear();
+            cartRepository.save(cart);
+        }
+    }
+
+    @Transactional
+    public void deleteCartByUserId(Long userId) {
+        Cart cart = cartRepository.findByUserId(userId);
+        if (cart != null) {
+            cartRepository.delete(cart);
+        }
     }
 
 }
