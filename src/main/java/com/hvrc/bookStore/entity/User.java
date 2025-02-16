@@ -1,5 +1,6 @@
 package com.hvrc.bookStore.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -9,6 +10,7 @@ import java.util.List;
 
 @Entity
 @Data
+@JsonIgnoreProperties({"savedBooks"})
 public class User {
 
     @Id

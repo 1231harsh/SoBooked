@@ -4,6 +4,7 @@ import com.hvrc.bookStore.entity.Book;
 import com.hvrc.bookStore.entity.SavedBook;
 import com.hvrc.bookStore.entity.User;
 import com.hvrc.bookStore.repository.SavedBookRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +24,7 @@ public class SavedBookService {
         return savedBookRepository.save(savedBook);
     }
 
+    @Transactional
     public void unsaveBook(User user, Book book) {
         savedBookRepository.deleteByUserAndBook(user, book);
     }

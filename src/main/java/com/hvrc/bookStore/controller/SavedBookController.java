@@ -1,5 +1,6 @@
 package com.hvrc.bookStore.controller;
 
+import com.hvrc.bookStore.dto.SavedBookDTO;
 import com.hvrc.bookStore.entity.Book;
 import com.hvrc.bookStore.entity.SavedBook;
 import com.hvrc.bookStore.entity.User;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 public class SavedBookController {
@@ -23,10 +25,14 @@ public class SavedBookController {
     @Autowired
     private BookService bookService;
 
-    @GetMapping("/saved-books/{userId}")
-    public List<SavedBook> getSavedBooksByUser(Principal principal) {
+    @GetMapping("/saved-books")
+    public List<SavedBookDTO> getSavedBooksByUser(Principal principal) {
         User user = userService.findByUsername(principal.getName());
-        return savedBookService.getSavedBooksByUser(user);
+
+        return savedBookService.getSavedBooksByUser(user)
+                .stream()
+                .map(SavedBookDTO::new)
+                .collect(Collectors.toList());
     }
 
     @PostMapping("/saved-book/save")
