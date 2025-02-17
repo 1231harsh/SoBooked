@@ -118,4 +118,8 @@ public class BookService {
         userBookActivityService.save(new UserBookActivity(user, book, "VIEW"));
         smsService.sendSms(book.getPhoneNumber(), "Your book has been viewed");
     }
+
+    public List<Book> getBooksByCategory(String category, Long id) {
+        return bookRepository.findByCategoryAndIdNot(category, id);
+    }
 }

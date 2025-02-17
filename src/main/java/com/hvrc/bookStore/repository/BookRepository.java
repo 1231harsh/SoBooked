@@ -13,4 +13,6 @@ public interface BookRepository extends JpaRepository<Book,Long> {
     List<Book> findByCityAndAvailableForRentTrue(String city);
 
     List<Book> findByStatusNot(String sold);
+
+    List<Book> findByCategoryAndIdNot(String category, Long id);
 }

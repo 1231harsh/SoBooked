@@ -2,6 +2,7 @@ package com.hvrc.bookStore.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hvrc.bookStore.dto.BookDTO;
+import com.hvrc.bookStore.dto.BookResponseDTO;
 import com.hvrc.bookStore.entity.Book;
 import com.hvrc.bookStore.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 public class BookController {
@@ -61,7 +63,7 @@ public class BookController {
     }
 
     @GetMapping("/api/getBook/{id}")
-    public ResponseEntity<BookDTO> getBookById(@PathVariable Long id) {
+    public ResponseEntity<BookResponseDTO> getBookById(@PathVariable Long id) {
         Book book = bookService.getBookById(id);
         BookDTO bookDTO = new BookDTO(
                 book.getId(),
@@ -76,6 +78,25 @@ public class BookController {
                 book.getPhoneNumber(),
                 book.isAvailableForRent()
         );
-        return new ResponseEntity<>(bookDTO, HttpStatus.OK);
+
+        List<Book> similarBooks = bookService.getBooksByCategory(book.getCategory(), id);
+
+        List<BookDTO> similarBooksDTO = similarBooks.stream().map(b -> new BookDTO(
+                b.getId(),
+                b.getName(),
+                b.getAuthor(),
+                b.getDescription(),
+                b.getCategory(),
+                b.getRentalPrice(),
+                b.getBuyPrice(),
+                b.getCity(),
+                b.getPhoto(),
+                b.getPhoneNumber(),
+                b.isAvailableForRent()
+        )).toList();
+
+        BookResponseDTO response = new BookResponseDTO(bookDTO, similarBooksDTO);
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 }
