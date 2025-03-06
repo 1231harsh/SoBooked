@@ -68,8 +68,8 @@ public class MySecurity {
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowCredentials(true);
         config.addAllowedOrigin("http://localhost:3000");
-        config.addAllowedOrigin("https://hvrc1231.pythonanywhere.com");
-        config.addAllowedOriginPattern("https://*.pythonanywhere.com");
+        // config.addAllowedOrigin("https://hvrc1231.pythonanywhere.com");
+        // config.addAllowedOriginPattern("https://*.pythonanywhere.com");
         config.addAllowedOrigin("http://localhost:5176");
         config.addAllowedOrigin("https://so-booked-vm.vercel.app");
         config.addAllowedOrigin("https://reccomendation-system.onrender.com");
