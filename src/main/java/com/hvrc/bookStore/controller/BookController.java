@@ -46,15 +46,6 @@ public class BookController {
         }
     }
 
-    @GetMapping("/api/city/{city}")
-    public List<Book> getBooksByCity(@PathVariable String city) {
-        return bookService.getBooksByCity(city);
-    }
-
-    @GetMapping("/api/rent/city/{city}")
-    public List<Book> getBooksForRentByCity(@PathVariable String city) {
-        return bookService.getBooksForRentByCity(city);
-    }
 
     @GetMapping("/api/getBooks")
     public ResponseEntity<List<BookDTO>> getBooks() {

@@ -1,5 +1,6 @@
 package com.hvrc.bookStore.controller;
 
+import com.hvrc.bookStore.dto.BookDTO;
 import com.hvrc.bookStore.entity.User;
 import com.hvrc.bookStore.service.RecommendationService;
 import com.hvrc.bookStore.service.UserService;
@@ -28,5 +29,13 @@ public class RecommendationController {
         User user = userService.findByUsername(principal.getName());
         Long userId = user.getId();
         return recommendationService.getRecommendedBooks(userId);
+    }
+
+    @GetMapping("/getBooks/{id}")
+    public List<BookDTO> getRecommendations(@PathVariable Long id) {
+        return recommendationService.getRecommendedBooks(id)
+                .stream()
+                .map(BookDTO::new)
+                .toList();
     }
 }

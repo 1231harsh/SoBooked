@@ -29,9 +29,6 @@ public class UserBookActivityController {
     private UserService userService;
 
     @Autowired
-    private ObjectMapper objectMapper;
-
-    @Autowired
     private BookService bookService;
 
     @GetMapping("/api/user-activity")
@@ -42,6 +39,7 @@ public class UserBookActivityController {
                 .map(UserBookActivityDTO::new)
                 .toList();
     }
+
 
     @PostMapping("/api/user-activity/save")
     public ResponseEntity<String> save(Principal principal, @RequestBody UserBookActivityDTO userBookActivityDTO) {
