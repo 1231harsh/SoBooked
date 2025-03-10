@@ -10,6 +10,7 @@ import com.hvrc.bookStore.repository.UserRepository;
 import com.hvrc.bookStore.smsService.SmsService;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -30,7 +31,7 @@ public class BookService {
 
     public BookService(BookRepository bookRepository, UserRepository userRepository,
                        UserBookActivityService userBookActivityService, SmsService smsService,
-                       CartItemsService cartItemsService, RentedBookService rentedBookService) {
+                       CartItemsService cartItemsService, @Lazy RentedBookService rentedBookService) {
         this.bookRepository = bookRepository;
         this.userRepository = userRepository;
         this.userBookActivityService = userBookActivityService;
