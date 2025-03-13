@@ -12,20 +12,17 @@ import java.util.Optional;
 @Service
 public class CartService {
 
-    @Autowired
-    private CartRepository cartRepository;
+    private final CartRepository cartRepository;
+    private final UserService userService;
+    private final CartItemsService cartItemsService;
+    private final BookService bookService;
 
-    @Autowired
-    private UserService userService;
-
-    @Autowired
-    private BookService bookService;
-
-    @Autowired
-    private CartItemsService cartItemsService;
-
-    @Autowired
-    private OrderRepository orderRepository;
+    public CartService(CartRepository cartRepository, UserService userService, CartItemsService cartItemsService, BookService bookService) {
+        this.cartRepository = cartRepository;
+        this.userService = userService;
+        this.cartItemsService = cartItemsService;
+        this.bookService = bookService;
+    }
 
     public Cart getCartByUsername(String username) {
         Optional<Cart> cartOptional;

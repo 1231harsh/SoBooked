@@ -13,8 +13,11 @@ import java.util.List;
 @Service
 public class SavedBookService {
 
-    @Autowired
-    private SavedBookRepository savedBookRepository;
+    private final SavedBookRepository savedBookRepository;
+
+    public SavedBookService(SavedBookRepository savedBookRepository) {
+        this.savedBookRepository = savedBookRepository;
+    }
 
     public List<SavedBook> getSavedBooksByUser(User user) {
         return savedBookRepository.findByUser(user);

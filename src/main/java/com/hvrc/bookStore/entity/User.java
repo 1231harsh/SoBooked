@@ -17,9 +17,14 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+
+    @Column(nullable = false, unique = true)
     private String username;
+    @Column(nullable = false)
     private String password;
-    private String role;
+
+    @Enumerated(EnumType.STRING)
+    private Role role = Role.USER;
 
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     @JsonManagedReference
@@ -27,4 +32,8 @@ public class User {
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<SavedBook> savedBooks = new ArrayList<>();
+
+    public enum Role{
+        USER, ADMIN
+    }
 }

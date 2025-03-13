@@ -14,12 +14,13 @@ import java.util.List;
 @RequestMapping("/rented-books")
 public class RentedBookController {
 
-    @Autowired
-    private UserService userService;
 
     private final RentedBookService rentedBookService;
+    private final UserService userService;
 
-    public RentedBookController(RentedBookService rentedBookService) {
+
+    public RentedBookController(RentedBookService rentedBookService, UserService userService) {
+        this.userService = userService;
         this.rentedBookService = rentedBookService;
     }
 

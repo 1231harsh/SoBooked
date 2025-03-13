@@ -17,13 +17,15 @@ import java.util.stream.Collectors;
 @RestController
 public class SavedBookController {
 
-    @Autowired
-    private UserService userService;
-    @Autowired
-    private SavedBookService savedBookService;
+   private final SavedBookService savedBookService;
+   private final UserService userService;
+   private final BookService bookService;
 
-    @Autowired
-    private BookService bookService;
+   public SavedBookController(SavedBookService savedBookService, UserService userService, BookService bookService) {
+       this.savedBookService = savedBookService;
+       this.userService = userService;
+       this.bookService = bookService;
+   }
 
     @GetMapping("/saved-books")
     public List<SavedBookDTO> getSavedBooksByUser(Principal principal) {

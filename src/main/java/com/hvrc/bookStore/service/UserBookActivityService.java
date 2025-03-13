@@ -11,8 +11,11 @@ import java.util.List;
 @Service
 public class UserBookActivityService {
 
-    @Autowired
-    private UserBookActivityRepository userBookActivityRepository;
+    private final UserBookActivityRepository userBookActivityRepository;
+
+    public UserBookActivityService(UserBookActivityRepository userBookActivityRepository) {
+        this.userBookActivityRepository = userBookActivityRepository;
+    }
 
     public List<UserBookActivity> getUserActivities() {
 

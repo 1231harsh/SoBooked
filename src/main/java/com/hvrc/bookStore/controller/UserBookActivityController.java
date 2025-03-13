@@ -22,14 +22,15 @@ import java.util.List;
 @RestController
 public class UserBookActivityController {
 
-    @Autowired
-    private UserBookActivityService userBookActivityService;
+    private final UserBookActivityService userBookActivityService;
+    private final UserService userService;
+    private final BookService bookService;
 
-    @Autowired
-    private UserService userService;
-
-    @Autowired
-    private BookService bookService;
+    public UserBookActivityController(UserBookActivityService userBookActivityService, UserService userService, BookService bookService) {
+        this.userBookActivityService = userBookActivityService;
+        this.userService = userService;
+        this.bookService = bookService;
+    }
 
     @GetMapping("/api/user-activity")
     public List<UserBookActivityDTO> getUserActivities() {

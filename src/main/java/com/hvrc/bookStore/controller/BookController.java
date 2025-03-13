@@ -17,8 +17,12 @@ import java.util.stream.Collectors;
 
 @RestController
 public class BookController {
-    @Autowired
-    private BookService bookService;
+
+    private final BookService bookService;
+
+    public BookController(BookService bookService) {
+        this.bookService = bookService;
+    }
 
     @PostMapping("/api/test")
     public String test() {

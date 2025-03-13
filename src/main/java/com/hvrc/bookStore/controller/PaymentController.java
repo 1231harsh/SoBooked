@@ -13,12 +13,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("payment")
 public class PaymentController {
 
-    @Autowired
-    private StripeService stripeService;
+    private final StripeService stripeService;
+    private final OrderService orderService;
 
-    @Autowired
-    private OrderService orderService;
-
+    public PaymentController(StripeService stripeService, OrderService orderService) {
+        this.stripeService = stripeService;
+        this.orderService = orderService;
+    }
 
     @PostMapping("/confirm")
     public ResponseEntity<String> confirmPayment(@RequestParam String paymentId) throws Exception {

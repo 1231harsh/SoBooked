@@ -9,10 +9,8 @@ import com.hvrc.bookStore.repository.BookRepository;
 import com.hvrc.bookStore.repository.UserRepository;
 import com.hvrc.bookStore.smsService.SmsService;
 import jakarta.transaction.Transactional;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
-
 import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -47,6 +45,26 @@ public class BookService {
         }
         bookRepository.save(book);
         return true;
+    }
+
+    public void updateBook(Long bookId,Book book) {
+        Book book1 = bookRepository.findById((bookId)).orElseThrow(() -> new RuntimeException("Book not found"));
+        book1.setName(book.getName());
+        book1.setAuthor(book.getAuthor());
+        book1.setDescription(book.getDescription());
+        book1.setCategory(book.getCategory());
+        book1.setRentalPrice(book.getRentalPrice());
+        book1.setBuyPrice(book.getBuyPrice());
+        book1.setCity(book.getCity());
+        book1.setPhoto(book.getPhoto());
+        book1.setPhoneNumber(book.getPhoneNumber());
+        book1.setAvailableForRent(book.isAvailableForRent());
+        bookRepository.save(book1);
+    }
+
+    public void deleteBook(Long bookId) {
+        Book book = bookRepository.findById(bookId).orElseThrow(() -> new RuntimeException("Book not found"));
+        bookRepository.delete(book);
     }
 
     public List<BookDTO> getBooks() {

@@ -12,8 +12,11 @@ import java.util.Optional;
 @Service
 public class CartItemsService {
 
-    @Autowired
-    private CartItemsRepository cartItemsRepository;
+    private final CartItemsRepository cartItemsRepository;
+
+    public CartItemsService(CartItemsRepository cartItemsRepository) {
+        this.cartItemsRepository = cartItemsRepository;
+    }
 
     public void save(CartItems cartItem) {
         cartItemsRepository.save(cartItem);

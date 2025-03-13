@@ -23,7 +23,4 @@ public class UserBookActivityService {
         userBookActivityRepository.save(userBookActivity);
     }
 
-    public UserBookActivity getUserActivitiesByUserId(Long userId) {
-        return userBookActivityRepository.findByUser(userId);
-    }
 }

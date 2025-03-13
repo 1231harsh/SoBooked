@@ -13,11 +13,13 @@ import java.security.Principal;
 @RestController
 public class OrderController {
 
-    @Autowired
-    private UserService userService;
+    private final OrderService orderService;
+    private final UserService userService;
 
-    @Autowired
-    private OrderService orderService;
+    public OrderController(OrderService orderService, UserService userService) {
+        this.orderService = orderService;
+        this.userService = userService;
+    }
 
     @PostMapping("/placeOrder")
     public ResponseEntity<CreatePaymentResponse> placeOrder(Principal principal) {

@@ -14,8 +14,11 @@ import java.security.Principal;
 @RestController
 public class CartController {
 
-    @Autowired
-    private CartService cartService;
+    private final CartService cartService;
+
+    public CartController(CartService cartService) {
+        this.cartService = cartService;
+    }
 
     @GetMapping("/cart/getBooks")
     public ResponseEntity<CartDTO> getCart(Principal principal) {
