@@ -7,4 +7,5 @@ import java.util.Collection;
 
 public interface UserBookActivityRepository extends JpaRepository<UserBookActivity, Long> {
 
+    void deleteByBookId(Long bookId);
 }

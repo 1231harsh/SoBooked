@@ -23,13 +23,13 @@ public class CartController {
     @GetMapping("/cart/getBooks")
     public ResponseEntity<CartDTO> getCart(Principal principal) {
         Cart cart = cartService.getCartByUsername(principal.getName());
-        CartDTO cartDto= CartMapper.toCartDTO(cart);
+        CartDTO cartDto = CartMapper.toCartDTO(cart);
         return new ResponseEntity<>(cartDto, HttpStatus.OK);
     }
-    
+
     @PostMapping("/cart/add")
-    public ResponseEntity<Boolean> addCart(Principal principal, @RequestParam Long bookId,@RequestParam boolean isRenting) {
-        boolean result = cartService.addToCart(principal.getName(), bookId,isRenting);
+    public ResponseEntity<Boolean> addCart(Principal principal, @RequestParam Long bookId, @RequestParam boolean isRenting) {
+        boolean result = cartService.addToCart(principal.getName(), bookId, isRenting);
         return ResponseEntity.ok(result);
     }
 
@@ -39,7 +39,7 @@ public class CartController {
         return ResponseEntity.ok("Cart Deleted");
     }
 
-     @DeleteMapping("/cart/deleteAll")
+    @DeleteMapping("/cart/deleteAll")
     public ResponseEntity<String> deleteCart(Principal principal) {
         cartService.removeAll(principal.getName());
         return ResponseEntity.ok("Cart Deleted");

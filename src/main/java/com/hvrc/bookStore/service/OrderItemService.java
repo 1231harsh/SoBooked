@@ -4,6 +4,7 @@ import com.hvrc.bookStore.entity.OrderItem;
 import com.hvrc.bookStore.repository.OrderItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class OrderItemService {
@@ -18,7 +19,8 @@ public class OrderItemService {
         orderItemRepository.save(orderItem);
     }
 
-    public void deleteOrderItem(Long id) {
-        orderItemRepository.deleteById(id);
+    @Transactional
+    public void deleteOrderItem(Long BookId) {
+        orderItemRepository.deleteByBookId(BookId);
     }
 }

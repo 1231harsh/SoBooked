@@ -68,4 +68,9 @@ public class RentedBookService {
     public void save(RentedBook rentedBook) {
         rentedBookRepository.save(rentedBook);
     }
+
+    @Transactional
+    public void deleteRentedBook(Long bookId) {
+        rentedBookRepository.deleteByBookId(bookId);
+    }
 }

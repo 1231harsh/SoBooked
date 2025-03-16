@@ -11,7 +11,7 @@ import java.security.Principal;
 import java.util.List;
 
 @RestController
-@RequestMapping("/rented-books")
+@RequestMapping(value = "/rented-books", produces = "application/json")
 public class RentedBookController {
 
 

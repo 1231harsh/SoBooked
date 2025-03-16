@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface RentedBookRepository extends JpaRepository<RentedBook, Long> {
     List<RentedBook> findByUserAndReturnedFalse(User user);
+
+    void deleteByBookId(Long bookId);
 }

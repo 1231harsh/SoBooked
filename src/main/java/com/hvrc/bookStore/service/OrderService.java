@@ -7,7 +7,6 @@ import com.hvrc.bookStore.entity.*;
 import com.hvrc.bookStore.repository.OrderRepository;
 import com.stripe.model.PaymentIntent;
 import jakarta.transaction.Transactional;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -33,7 +32,6 @@ public class OrderService {
     @Transactional
     public CreatePaymentResponse placeOrder(Long cartId) {
         Cart cart = cartService.getCartById(cartId);
-        Long userId = cart.getUser().getId();
 
         List<CartItems> cartItems = cart.getCartItems();
 
@@ -121,7 +119,6 @@ public class OrderService {
 
     public OrderDTO getOrderById(Long orderId) {
         Order order = orderRepository.findById(orderId).orElseThrow(() -> new RuntimeException("Order not found"));
-        OrderDTO orderDTO = OrderMapper.toOrderDTO(order);
-        return orderDTO;
+        return OrderMapper.toOrderDTO(order);
     }
 }

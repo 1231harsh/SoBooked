@@ -16,20 +16,19 @@ import java.util.List;
 @Service
 public class OrderService {
 
-    @Autowired
-    private OrderRepository orderRepository;
+    private final OrderRepository orderRepository;
+    private final OrderItemService orderItemService;
+    private final CartService cartService;
+    private final BookService bookService;
+    private final StripeService stripeService;
 
-    @Autowired
-    private CartService cartService;
-
-    @Autowired
-    private OrderItemService orderItemService;
-
-    @Autowired
-    private BookService bookService;
-
-    @Autowired
-    private StripeService stripeService;
+    public OrderService(OrderRepository orderRepository, OrderItemService orderItemService, CartService cartService, BookService bookService, StripeService stripeService) {
+        this.orderRepository = orderRepository;
+        this.orderItemService = orderItemService;
+        this.cartService = cartService;
+        this.bookService = bookService;
+        this.stripeService = stripeService;
+    }
 
     @Transactional
     public CreatePaymentResponse placeOrder(Long cartId) {

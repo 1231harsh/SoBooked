@@ -24,27 +24,27 @@ public class CartService {
         this.bookService = bookService;
     }
 
+    @Transactional
     public Cart getCartByUsername(String username) {
-        Optional<Cart> cartOptional;
         User user = userService.findByUsername(username);
-        cartOptional=cartRepository.findByUser(user);
-        if(cartOptional.isPresent()){
-            return cartOptional.get();
-        }else{
-            createCart(user);
-            return getCartByUsername(username);
-        }
+        return cartRepository.findByUser(user)
+                .orElseGet(() -> {
+                    Cart newCart = new Cart();
+                    newCart.setUser(user);
+                    return cartRepository.save(newCart);
+                });
     }
 
     public Cart getCartById(Long id) {
         return cartRepository.findById(id).orElseThrow();
     } // findById()
 
-    private boolean createCart(User user) {
+    private Cart createCart(User user) {
         Cart cart = new Cart();
         cart.setUser(user);
-        cartRepository.save(cart);
-        return true;
+        cart = cartRepository.save(cart);
+        cartRepository.flush();
+        return cart;
     }
 
     public boolean addToCart(String username, Long bookId,boolean isRenting) {

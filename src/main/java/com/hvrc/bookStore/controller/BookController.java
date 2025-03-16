@@ -60,6 +60,11 @@ public class BookController {
     @GetMapping("/api/getBook/{id}")
     public ResponseEntity<BookResponseDTO> getBookById(@PathVariable Long id) {
         Book book = bookService.getBookById(id);
+
+        if (book == null) {  // Handle null case properly
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+
         BookDTO bookDTO = new BookDTO(
                 book.getId(),
                 book.getName(),

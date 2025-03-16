@@ -4,6 +4,7 @@ import com.hvrc.bookStore.entity.UserBookActivity;
 import com.hvrc.bookStore.repository.UserBookActivityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
 import java.util.List;
@@ -26,4 +27,8 @@ public class UserBookActivityService {
         userBookActivityRepository.save(userBookActivity);
     }
 
+    @Transactional
+    public void deleteUserBookActivity(Long bookId) {
+        userBookActivityRepository.deleteByBookId(bookId);
+    }
 }

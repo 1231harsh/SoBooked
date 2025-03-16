@@ -87,14 +87,6 @@ public class BookService {
         return bookRepository.findById(bookId).orElseThrow(() -> new RuntimeException("Book not found"));
     }
 
-    public List<Book> getBooksByCity(String city) {
-        return bookRepository.findByCity(city);
-    }
-
-    public List<Book> getBooksForRentByCity(String city) {
-        return bookRepository.findByCityAndAvailableForRentTrue(city);
-    }
-
     @Transactional
     public void sellBook(Long userId, Long bookId) {
         if (bookRepository.existsById(bookId)) {

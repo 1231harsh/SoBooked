@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
+@RequestMapping(value = "/saved-book", produces = "application/json")
 public class SavedBookController {
 
    private final SavedBookService savedBookService;
@@ -27,7 +28,7 @@ public class SavedBookController {
        this.bookService = bookService;
    }
 
-    @GetMapping("/saved-books")
+    @GetMapping()
     public List<SavedBookDTO> getSavedBooksByUser(Principal principal) {
         User user = userService.findByUsername(principal.getName());
 
@@ -37,7 +38,7 @@ public class SavedBookController {
                 .collect(Collectors.toList());
     }
 
-    @PostMapping("/saved-book/save")
+    @PostMapping("/save")
     public SavedBook saveBook(Principal principal, @RequestParam Long bookId) {
         User user = userService.findByUsername(principal.getName());
         Book book = bookService.getBookById(bookId);
@@ -48,7 +49,7 @@ public class SavedBookController {
         return savedBookService.saveBook(savedBook);
     }
 
-    @PostMapping("/saved-book/unsave")
+    @PostMapping("/unsave")
     public void unsaveBook(Principal principal, @RequestParam Long bookId) {
         User user = userService.findByUsername(principal.getName());
         Book book = bookService.getBookById(bookId);

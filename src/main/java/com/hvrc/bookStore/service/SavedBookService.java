@@ -31,4 +31,9 @@ public class SavedBookService {
     public void unsaveBook(User user, Book book) {
         savedBookRepository.deleteByUserAndBook(user, book);
     }
+
+    @Transactional
+    public void deleteSavedBook(Long bookId) {
+        savedBookRepository.deleteByBookId(bookId);
+    }
 }
