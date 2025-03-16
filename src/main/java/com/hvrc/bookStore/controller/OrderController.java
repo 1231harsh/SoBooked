@@ -38,4 +38,10 @@ public class OrderController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+
+    @GetMapping("/orders")
+    public ResponseEntity<?> getOrders(Principal principal) {
+        User user = userService.findByUsername(principal.getName());
+        return ResponseEntity.ok(orderService.getOrders(user));
+    }
 }

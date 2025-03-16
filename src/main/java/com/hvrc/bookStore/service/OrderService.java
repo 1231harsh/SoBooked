@@ -121,4 +121,9 @@ public class OrderService {
         Order order = orderRepository.findById(orderId).orElseThrow(() -> new RuntimeException("Order not found"));
         return OrderMapper.toOrderDTO(order);
     }
+
+    public Object getOrders(User user) {
+        List<Order> orders = orderRepository.findByUser(user);
+        return orders.stream().map(OrderMapper::toOrderDTO);
+    }
 }
